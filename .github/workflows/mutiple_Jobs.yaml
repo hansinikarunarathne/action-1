@@ -1,0 +1,52 @@
+name: Run Multiple Jobs
+
+on: push
+
+jobs:
+    build_job_1:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Install Cowsay Program
+          uses: sudo apt-get install cowsay -y
+
+        - name: Execute Cowsay CMD
+          uses: cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" >> dragon.txt
+
+        - name: Sleep for 30 seconds
+          uses: sleep 30
+
+    test_job_2:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Sleep for 10 seconds
+          uses: sleep 10
+
+        - name: Test File exists
+          uses: grep -i "dragon" dragon.txt
+
+    deploy_job_3:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Read File
+          uses: cat dragon.txt
+    
+        - name: Deploy
+          uses: echo Deploying ...
+
+        # - name: Chekout Repo
+        #   uses: actions/checkout@v4
+
+        # - name: List files
+        #   run: ls -ltra
+
+        # - name: Executing Shell Script
+        #   run: |
+        #     chmod +x ascii-script.sh 
+        #     ./ascii-script.sh
+
+
+        # - name: List files
+        #   run: ls
+
+        # - name: Read file
+        #   run: cat README.md
